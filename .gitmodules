@@ -16,12 +16,12 @@
 [submodule "ThirdParty/cgltf"]
 	path = ThirdParty/cgltf
 	url = https://github.com/jkuhlmann/cgltf.git
-[submodule "ThirdParty/vkbootstrap/"]
-	path = ThirdParty/vkbootstrap/
+[submodule "ThirdParty/vk-bootstrap"]
+	path = ThirdParty/vk-bootstrap
 	url = https://github.com/charles-lunarg/vk-bootstrap.git
-[submodule "ThirdParty/spdlog/"]
-	path = ThirdParty/spdlog/
+[submodule "ThirdParty/spdlog"]
+	path = ThirdParty/spdlog
 	url = https://github.com/gabime/spdlog.git
-[submodule "ThirdParty/VMA/"]
-	path = ThirdParty/VMA/
+[submodule "ThirdParty/VMA"]
+	path = ThirdParty/VMA
 	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
