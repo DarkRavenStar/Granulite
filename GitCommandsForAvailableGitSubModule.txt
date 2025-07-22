@@ -1,0 +1,8 @@
+git submodule add -- "https://github.com/glfw/glfw.git" "ThirdParty/glfw"
+git submodule add -- "https://github.com/zeux/volk.git" "ThirdParty/volk"
+git submodule add -- "https://github.com/zeux/meshoptimizer.git" "ThirdParty/meshoptimizer"
+git submodule add -- "https://github.com/g-truc/glm.git" "ThirdParty/glm"
+git submodule add -- "https://github.com/charles-lunarg/vk-bootstrap.git" "ThirdParty/vk-bootstrap"
+git submodule add -- "https://github.com/gabime/spdlog.git" "ThirdParty/spdlog"
+git submodule add -- "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git" "ThirdParty/VMA"
+git submodule add -b docking -- "https://github.com/ocornut/imgui.git" "ThirdParty/imgui"

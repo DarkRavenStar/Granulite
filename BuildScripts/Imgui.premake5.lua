@@ -1,8 +1,8 @@
 dofile("Helper.lua")
 
-include "GLFW.premake5.lua"
-include "Volk.premake5.lua"
-include "Vulkan.premake5.lua"
+--include "GLFW.premake5.lua"
+--include "Volk.premake5.lua"
+--include "Vulkan.premake5.lua"
 
 local dir = mainDir .. "/ThirdParty/Imgui"
 imguiIncludeDir = dir

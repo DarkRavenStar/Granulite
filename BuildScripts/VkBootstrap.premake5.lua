@@ -1,20 +1,22 @@
 --include "Vulkan.premake5.lua"
 
-local dir = mainDir .. "/ThirdParty/volk"
-volkIncludeDir = dir
-volkLibName = "Volk"
+local dir = mainDir .. "/ThirdParty/vk-bootstrap/src"
+vkBootstrapIncludeDir = dir
+vkBootstrapLibName = "VkBootstrap"
 
-project "Volk"
+
+
+project "VkBootstrap"
 	kind "StaticLib"
-	language "C"
+	language "C++"
 	location(projDir)
 	targetdir (targetDirMain)
 	objdir (objDirMain)
 	
 	files
 	{
-        dir .. "/volk.h",
-        dir .. "/volk.c",
+        dir .. "/**.h",
+        dir .. "/**.cpp",
     }
 
 	includedirs

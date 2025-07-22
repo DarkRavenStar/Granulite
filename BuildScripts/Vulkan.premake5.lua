@@ -3,7 +3,7 @@ local useEnv_Vulkan = true
 -- Get the Vulkan SDK path from the environment variable
 local vulkan_SDK_EnvPath = os.getenv("VULKAN_SDK")
 
-local dir = mainDir .. "/ThirdParty/vulkan"
+local dir = mainDir .. "/ThirdParty/Vulkan"
 
 if(useEnv_Vulkan) then
 	if not vulkan_SDK_EnvPath then
