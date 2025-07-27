@@ -1,53 +1,63 @@
 #pragma once
 
-#include <string>
 #include "vulkan/vulkan.h"
-#include "VkBootstrap.h"
-#include "glfw/glfw3.h"
+#include <string>
 
-struct DeviceCreationData
+// Forward declaration
+namespace vkb
 {
-	std::string m_AppName;
-	bool m_UseValidationLayer;
-};
+	struct Instance;
+}
 
-struct Device
+namespace gran
 {
-	VkInstance m_Instance = {};                     // Vulkan library handle
-	VkDebugUtilsMessengerEXT m_DebugMessenger = {}; // Vulkan debug output handle
-	VkPhysicalDevice m_PhysicalDevice = {};         // GPU chosen as the default device
-	VkDevice m_Device = {};                         // Vulkan device for commands
-	VkSurfaceKHR m_Surface = {};                    // Vulkan window surface
-};
+	struct DeviceCreationData
+	{
+		std::string m_AppName;
+		bool m_UseValidationLayer;
+		bool m_UseVSync;
+	};
 
-// Replicated and modified from vkbootstrap
-enum class QueueType
-{
-	present,
-	graphics,
-	compute,
-	transfer,
-	max
-};
+	struct Device
+	{
+		VkInstance m_Instance = {};                     // Vulkan library handle
+		VkDebugUtilsMessengerEXT m_DebugMessenger = {}; // Vulkan debug output handle
+		VkPhysicalDevice m_PhysicalDevice = {};         // GPU chosen as the default device
+		VkDevice m_Device = {};                         // Vulkan device for commands
+		VkSurfaceKHR m_Surface = {};                    // Vulkan window surface
+	};
 
-struct QueueData
-{
-	VkQueue m_QueueHandle = {};
-	uint32_t m_QueueFamily = {};
-};
+	// Replicated and modified from vkbootstrap
+	// Instead of enum class, we are using this
+	// for enumeration instead. So not strongly typed
+	// or need long static_cast declaration
+	enum QueueType
+	{
+		present,
+		graphics,
+		compute,
+		transfer,
+		max
+	};
 
-struct DeviceQueue
-{
-	QueueData m_Queue[static_cast<uint32_t>(QueueType::max)];
-};
+	struct QueueData
+	{
+		VkQueue m_QueueHandle = {};
+		uint32_t m_QueueFamily = {};
+	};
 
+	struct DeviceQueue
+	{
+		QueueData m_Queue[QueueType::max];
+	};
+} // namespace gran
 
 namespace gran::RHI
 {
-	//Order of initialization
-	//SetupInstance
-	//Create Window/Initialize Surface first
-	//SetupDevice
+	// Order of initialization
+	// - SetupInstance
+	// - Create Window/Initialize Surface first
+	// - SetupDevice
 
 	vkb::Instance SetupInstance(const DeviceCreationData& creationData, Device& out_Device, DeviceQueue& out_DeviceQueue);
 

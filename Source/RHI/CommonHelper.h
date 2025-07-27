@@ -5,8 +5,11 @@
 #include <stdlib.h>
 #include <vector>
 
-#include "volk.h"
+//Please include these 2 files if needed before using CommonHelper.h
+//#include "vulkan/vulkan.h"
+//#include "volk.h"
 
+#define API_VERSION VK_API_VERSION_1_4
 
 #define VK_CHECK(call) \
 	do \

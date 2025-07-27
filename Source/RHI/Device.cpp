@@ -1,10 +1,10 @@
-#include "Device.h"
+#include "RHI/Device.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define API_VERSION VK_API_VERSION_1_4
+#include "VkBootstrap.h"
 
 vkb::Instance gran::RHI::SetupInstance(const DeviceCreationData& creationData, Device& out_Device, DeviceQueue& out_DeviceQueue)
 {
@@ -16,7 +16,7 @@ vkb::Instance gran::RHI::SetupInstance(const DeviceCreationData& creationData, D
 	// builder.add_validation_feature_enable(VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION_EXT)
 	//.add_validation_feature_enable(VkValidationFeatureEnableEXT enable)
 	//.add_validation_feature_disable(VkValidationFeatureDisableEXT disable)
-	//enable_extension_features_if_present
+	// enable_extension_features_if_present
 	builder.use_default_debug_messenger();
 	builder.require_api_version(1, 3, 0);
 
@@ -43,36 +43,35 @@ void gran::RHI::SetupDevice(const vkb::Instance& instance, Device& out_Device, D
 		VK_EXT_MESH_SHADER_EXTENSION_NAME, // Assuming mesh shader is available, if not fallback to compute
 	};
 
-	VkPhysicalDeviceFeatures features{};
+	VkPhysicalDeviceFeatures features {};
 	features.independentBlend = true; // Can do custom blending?
-	features.geometryShader = true; // for mesh shaders?
+	features.geometryShader = true;   // for mesh shaders?
 	features.multiDrawIndirect = true;
 	features.drawIndirectFirstInstance = true; // Not sure why this is here
 	features.samplerAnisotropy = true;
 	features.pipelineStatisticsQuery = true;
 	features.shaderStorageImageWriteWithoutFormat = true; //???
-	features.shaderFloat64 = true; //???
-	features.shaderInt64 = true;   //???
-	features.shaderInt16 = true;   //???
+	features.shaderFloat64 = true;                        //???
+	features.shaderInt64 = true;                          //???
+	features.shaderInt16 = true;                          //???
 	// Allow for dynamic/ unordered access???
 	features.shaderUniformBufferArrayDynamicIndexing = true;
 	features.shaderSampledImageArrayDynamicIndexing = true;
 	features.shaderStorageBufferArrayDynamicIndexing = true;
 	features.shaderStorageImageArrayDynamicIndexing = true;
 	features.shaderStorageImageArrayDynamicIndexing = true;
-	
-		
+
 	// vulkan 1.1 features
-	VkPhysicalDeviceVulkan11Features features11{ .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES };
+	VkPhysicalDeviceVulkan11Features features11 { .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES };
 	features11.storageBuffer16BitAccess = true;
 	features11.shaderDrawParameters = true;
 
 	// vulkan 1.2 features
-	VkPhysicalDeviceVulkan12Features features12{ .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES };
+	VkPhysicalDeviceVulkan12Features features12 { .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES };
 	features12.bufferDeviceAddress = true;
 	features12.descriptorIndexing = true;
-	//features12.hostQueryReset = true, // Seems like needed for profilling
-	// Enabled for experimentation
+	// features12.hostQueryReset = true, // Seems like needed for profilling
+	//  Enabled for experimentation
 	features12.descriptorBindingPartiallyBound = true;
 	features12.descriptorBindingPartiallyBound = true;
 	features12.descriptorBindingSampledImageUpdateAfterBind = true;
@@ -137,7 +136,7 @@ void gran::RHI::SetupDevice(const vkb::Instance& instance, Device& out_Device, D
 	selector.set_required_features_13(features13);
 	selector.set_required_features_14(features14);
 	selector.set_surface(out_Device.m_Surface);
-	//selector.defer_surface_initialization();
+	// selector.defer_surface_initialization();
 
 	vkb::PhysicalDevice physicalDevice = selector.select().value();
 
