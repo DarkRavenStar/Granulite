@@ -11,20 +11,23 @@ project "Granulite"
 	targetdir (targetDirMain)
 	objdir (objDirMain)
 
+	local granuliteIncludeDir = mainDir .. "/Source"
+
 	-- Include the files in the project
 	addFilesWithFilters
 	(
 		{
-			mainDir .. "/Source" .. "/**.cpp",
-			mainDir .. "/Source" .. "/**.h",
+			granuliteIncludeDir .. "/**.cpp",
+			granuliteIncludeDir .. "/**.h",
 		},
 		{
-			mainDir .. "/Source" .. "/TestMain.cpp",
+			granuliteIncludeDir .. "/TestMain.cpp",
 		}
 	)
 
 	includedirs
 	{
+		granuliteIncludeDir,
 		glfwIncludeDir,
 		vulkanIncludeDir,
 		volkIncludeDir,
@@ -52,8 +55,8 @@ project "Granulite"
 
 	defines
 	{
-		"IMGUI_IMPL_VULKAN_USE_VOLK",
-		"VOLK_IMPLEMENTATION",
+		--"IMGUI_IMPL_VULKAN_USE_VOLK",
+		--"VOLK_IMPLEMENTATION",
 		"VK_USE_PLATFORM_WIN32_KHR",
 		"VK_NO_PROTOTYPES",
 		"GLFW_INCLUDE_NONE",

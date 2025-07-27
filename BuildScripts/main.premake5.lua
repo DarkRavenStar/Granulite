@@ -56,6 +56,7 @@ workspace "Granulite"
       staticruntime "On"
 
    include "ZeroCheck.premake5.lua"
+   include "BuildScripts.premake5.lua"
    include "GLFW.premake5.lua"
    include "Vulkan.premake5.lua"
    include "Volk.premake5.lua"
