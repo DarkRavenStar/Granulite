@@ -16,6 +16,7 @@ namespace gran
 		std::string m_AppName;
 		bool m_UseValidationLayer;
 		bool m_UseVSync;
+		uint32_t m_MaxFramesInFlight = 2;
 	};
 
 	struct Device
