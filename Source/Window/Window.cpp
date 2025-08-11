@@ -44,7 +44,7 @@ void gran::Window::InitializeWindowRHI(
 {
 	VK_CHECK(volkInitialize());
 
-	vkb::Instance instance = gran::RHI::SetupInstance(creationData, out_Device, out_DeviceQueue);
+	vkb::Instance instance = gran::RHI::Device::SetupInstance(creationData, out_Device, out_DeviceQueue);
 
 	volkLoadInstanceOnly(out_Device.m_Instance);
 
@@ -52,7 +52,7 @@ void gran::Window::InitializeWindowRHI(
 	VkResult err = glfwCreateWindowSurface(out_Device.m_Instance, &window, nullptr, &out_Device.m_Surface);
 	VK_CHECK(err);
 
-	gran::RHI::SetupDevice(instance, out_Device, out_DeviceQueue);
+	gran::RHI::Device::SetupDevice(instance, out_Device, out_DeviceQueue);
 
 	volkLoadDevice(out_Device.m_Device);
 

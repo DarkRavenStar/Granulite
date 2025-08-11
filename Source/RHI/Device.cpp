@@ -6,7 +6,7 @@
 
 #include "VkBootstrap.h"
 
-vkb::Instance gran::RHI::SetupInstance(const DeviceCreationData& creationData, Device& out_Device, DeviceQueue& out_DeviceQueue)
+vkb::Instance gran::RHI::Device::SetupInstance(const gran::DeviceCreationData& creationData, gran::Device& out_Device, gran::DeviceQueue& out_DeviceQueue)
 {
 	vkb::InstanceBuilder builder;
 
@@ -29,7 +29,7 @@ vkb::Instance gran::RHI::SetupInstance(const DeviceCreationData& creationData, D
 	return instance;
 }
 
-void gran::RHI::SetupDevice(const vkb::Instance& instance, Device& out_Device, DeviceQueue& out_DeviceQueue)
+void gran::RHI::Device::SetupDevice(const vkb::Instance& instance, gran::Device& out_Device, gran::DeviceQueue& out_DeviceQueue)
 {
 	// Teena - RESEARCH WHAT EACH DEVICE FEATURE IS IF YOU HAVE TIME
 	// Currently we are targetting GPU Driven rendering stuff only

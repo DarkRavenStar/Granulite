@@ -53,15 +53,15 @@ namespace gran
 	};
 } // namespace gran
 
-namespace gran::RHI
+namespace gran::RHI::Device
 {
 	// Order of initialization
 	// - SetupInstance
 	// - Create Window/Initialize Surface first
 	// - SetupDevice
 
-	vkb::Instance SetupInstance(const DeviceCreationData& creationData, Device& out_Device, DeviceQueue& out_DeviceQueue);
+	vkb::Instance SetupInstance(const gran::DeviceCreationData& creationData, gran::Device& out_Device, gran::DeviceQueue& out_DeviceQueue);
 
-	void SetupDevice(const vkb::Instance& instance, Device& out_Device, DeviceQueue& out_DeviceQueue);
+	void SetupDevice(const vkb::Instance& instance, gran::Device& out_Device, gran::DeviceQueue& out_DeviceQueue);
 
-} // namespace gran::RHI
+} // namespace gran::RHI::Device

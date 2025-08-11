@@ -5,6 +5,7 @@
 #include "RHI/CommonHelper.h"
 #include "RHI/Device.h"
 #include "RHI/Swapchain.h"
+#include "RHI/FrameDataSync.h"
 #include "Window/Window.h"
 #define VOLK_IMPLEMENTATION
 #include "volk.h"
@@ -16,11 +17,13 @@ int main(int argc, const char** argv)
 	gran::Device device;
 	gran::DeviceQueue deviceQueue;
 	gran::Swapchain swapchain;
+	gran::FrameSyncData frameSyncData;
 
 	GLFWwindow* window = gran::Window::CreateWindowGLFW(creationData);
 	assert(window);
 
 	gran::Window::InitializeWindowRHI(*window, creationData, device, deviceQueue);
+	gran::RHI::Sync::CreateFrameSyncData(creationData, device, frameSyncData);
 
 	double prevTime = glfwGetTime();
 
@@ -36,6 +39,8 @@ int main(int argc, const char** argv)
 		gran::Window::UpdateWindowSwapchain(*window, creationData, device, deviceQueue, swapchain);
 
 	}
+
+	gran::RHI::Sync::CleanupFrameSyncData(device, frameSyncData);
 
 	gran::Window::CleanupWindowRHI(*window, device, swapchain);
 	gran::Window::DestroyWindow(*window);

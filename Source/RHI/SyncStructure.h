@@ -1,10 +1,10 @@
 #pragma once
 #include "vulkan/vulkan.h"
 
-namespace gran::SyncRHI
+namespace gran::RHI::Sync
 {
-	VkSemaphore CreateSemaphore(VkDevice device, VkSemaphoreCreateFlags flags = 0);
+	VkSemaphore CreateSemaphore(const VkDevice& device, VkSemaphoreCreateFlags flags = 0);
 
-	VkFence CreateFence(VkDevice device, VkFenceCreateFlags flags = 0);
+	VkFence CreateFence(const VkDevice& device, VkFenceCreateFlags flags = 0);
 
-} // namespace gran::SyncRHI
+} // namespace gran::RHI::Sync

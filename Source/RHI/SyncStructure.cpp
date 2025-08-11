@@ -3,12 +3,12 @@
 #include "RHI/CommonHelper.h"
 #include "volk.h"
 
-VkSemaphore gran::SyncRHI::CreateSemaphore(VkDevice device, VkSemaphoreCreateFlags flags)
+VkSemaphore gran::RHI::Sync::CreateSemaphore(const VkDevice& device, VkSemaphoreCreateFlags flags)
 {
 	VkSemaphoreCreateInfo info = {};
 	info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 	info.pNext = nullptr;
-	info.flags = flags;
+	//info.flags = flags;
 
 	VkSemaphore semaphore = 0;
 	VK_CHECK(vkCreateSemaphore(device, &info, 0, &semaphore));
@@ -16,7 +16,7 @@ VkSemaphore gran::SyncRHI::CreateSemaphore(VkDevice device, VkSemaphoreCreateFla
 	return semaphore;
 }
 
-VkFence gran::SyncRHI::CreateFence(VkDevice device, VkFenceCreateFlags flags)
+VkFence gran::RHI::Sync::CreateFence(const VkDevice& device, VkFenceCreateFlags flags)
 {
 	VkFenceCreateInfo info = {};
 	info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
