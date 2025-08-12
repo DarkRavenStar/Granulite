@@ -31,6 +31,7 @@ project "Granulite"
 		glfwIncludeDir,
 		vulkanIncludeDir,
 		volkIncludeDir,
+		vmaIncludeDir,
 		imguiIncludeDir,
 		vkBootstrapIncludeDir,
 	}
@@ -57,6 +58,9 @@ project "Granulite"
 	{
 		--"IMGUI_IMPL_VULKAN_USE_VOLK",
 		--"VOLK_IMPLEMENTATION",
+		"VOLK_HEADER_VERSION",
+		"VMA_DYNAMIC_VULKAN_FUNCTIONS=0",
+		"VMA_STATIC_VULKAN_FUNCTIONS=0",
 		"VK_USE_PLATFORM_WIN32_KHR",
 		"VK_NO_PROTOTYPES",
 		"GLFW_INCLUDE_NONE",

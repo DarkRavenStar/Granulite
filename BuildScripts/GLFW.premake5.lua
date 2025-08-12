@@ -1,7 +1,7 @@
 
 local useGlfw_Lib = true
 local dir = mainDir .. "/ThirdParty/" .. (useGlfw_Lib and "glfw_lib" or "glfw")
-local sourceDir = mainDir .. "/ThirdParty/glfw/src"
+local glfwSourceDir = mainDir .. "/ThirdParty/glfw/src"
 glfwIncludeDir = dir .. "/include"
 glfwLibDir = dir .. "/lib-vc2022"
 glfwLibName = "glfw3_mt" --We are going with mt version for simplicity - glfw3
@@ -14,10 +14,10 @@ project "GLFW"
 	files
 	{
         glfwIncludeDir .. "/**.h",
-		sourceDir .. "/**.*"
+		glfwSourceDir .. "/**.*"
     }
 	
-	filter { "files:" .. path.getrelative(os.getcwd(), sourceDir) .. "/**.*" }
+	filter { "files:" .. path.getrelative(os.getcwd(), glfwSourceDir) .. "/**.*" }
 		flags { "ExcludeFromBuild" }
 
 	filter {} -- Clear filter
