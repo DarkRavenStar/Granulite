@@ -6,11 +6,15 @@
 #include "RHI/Device.h"
 #include "RHI/Swapchain.h"
 #include "RHI/FrameDataSync.h"
+#include "RHI/Memory.h"
 #include "Window/Window.h"
 #define VOLK_IMPLEMENTATION
 #include "volk.h"
+#define VMA_IMPLEMENTATION
+#include "vk_mem_alloc.h"
 
-// Main code
+
+
 int main(int argc, const char** argv)
 {
 	gran::DeviceCreationData creationData { .m_AppName = "Granulite", .m_UseValidationLayer = true, };
@@ -18,12 +22,14 @@ int main(int argc, const char** argv)
 	gran::DeviceQueue deviceQueue;
 	gran::Swapchain swapchain;
 	gran::FrameSyncData frameSyncData;
+	gran::GPU_Allocator allocator;
 
 	GLFWwindow* window = gran::Window::CreateWindowGLFW(creationData);
 	assert(window);
 
 	gran::Window::InitializeWindowRHI(*window, creationData, device, deviceQueue);
 	gran::RHI::Sync::CreateFrameSyncData(creationData, device, frameSyncData);
+	gran::RHI::Memory::SetupAllocator(device, allocator);
 
 	double prevTime = glfwGetTime();
 
@@ -39,7 +45,7 @@ int main(int argc, const char** argv)
 		gran::Window::UpdateWindowSwapchain(*window, creationData, device, deviceQueue, swapchain);
 
 	}
-
+	gran::RHI::Memory::CleanupAllocator(device, allocator);
 	gran::RHI::Sync::CleanupFrameSyncData(device, frameSyncData);
 
 	gran::Window::CleanupWindowRHI(*window, device, swapchain);
