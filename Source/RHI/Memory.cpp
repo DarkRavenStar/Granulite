@@ -5,7 +5,7 @@
 #include "volk.h"
 #include <assert.h>
 
-void gran::RHI::Memory::SetupAllocator(const gran::Device& device, gran::GPU_Allocator& outAllocator)
+void gran::RHI::Memory::SetupAllocator(const gran::Device& device, gran::GpuAllocator& outAllocator)
 {
 	VmaAllocatorCreateInfo allocatorCreateInfo = {};
 	allocatorCreateInfo.physicalDevice = device.m_PhysicalDevice;
@@ -25,7 +25,7 @@ void gran::RHI::Memory::SetupAllocator(const gran::Device& device, gran::GPU_All
 	vmaCreateAllocator(&allocatorCreateInfo, &outAllocator.m_Allocator);
 }
 
-void gran::RHI::Memory::CleanupAllocator(const gran::Device& device, gran::GPU_Allocator& allocator)
+void gran::RHI::Memory::CleanupAllocator(const gran::Device& device, gran::GpuAllocator& allocator)
 {
 	vmaDestroyAllocator(allocator.m_Allocator);
 }

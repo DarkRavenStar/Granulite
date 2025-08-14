@@ -22,7 +22,7 @@ int main(int argc, const char** argv)
 	gran::DeviceQueue deviceQueue;
 	gran::Swapchain swapchain;
 	gran::FrameSyncData frameSyncData;
-	gran::GPU_Allocator allocator;
+	gran::GpuAllocator allocator;
 
 	GLFWwindow* window = gran::Window::CreateWindowGLFW(creationData);
 	assert(window);
