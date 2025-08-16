@@ -7,6 +7,7 @@
 #include "RHI/Swapchain.h"
 #include "RHI/FrameDataSync.h"
 #include "RHI/Memory.h"
+#include "RHI/Buffer.h"
 #include "Window/Window.h"
 #define VOLK_IMPLEMENTATION
 #include "volk.h"
@@ -31,6 +32,8 @@ int main(int argc, const char** argv)
 	gran::RHI::Sync::CreateFrameSyncData(creationData, device, frameSyncData);
 	gran::RHI::Memory::SetupAllocator(device, allocator);
 
+	BufferTesting(allocator);
+
 	double prevTime = glfwGetTime();
 
 	// Main loop
@@ -45,6 +48,7 @@ int main(int argc, const char** argv)
 		gran::Window::UpdateWindowSwapchain(*window, creationData, device, deviceQueue, swapchain);
 
 	}
+
 	gran::RHI::Memory::CleanupAllocator(device, allocator);
 	gran::RHI::Sync::CleanupFrameSyncData(device, frameSyncData);
 
