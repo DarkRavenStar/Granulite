@@ -9,7 +9,7 @@ gran::RenderAttachmentInfo gran::RHI::RenderPass::CreateColorAttachmentInfo(cons
 {
 	RenderAttachmentInfo info;
 
-	VkRenderingAttachmentInfo colorAttachment = info.m_AttachmentInfo;
+	VkRenderingAttachmentInfo& colorAttachment = info.m_AttachmentInfo;
 	colorAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO;
 	colorAttachment.pNext = nullptr;
 
@@ -26,7 +26,7 @@ gran::RenderAttachmentInfo gran::RHI::RenderPass::CreateDepthAttachmentInfo(cons
 {
 	RenderAttachmentInfo info;
 
-	VkRenderingAttachmentInfo depthAttachment = info.m_AttachmentInfo;
+	VkRenderingAttachmentInfo& depthAttachment = info.m_AttachmentInfo;
 	depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO;
 	depthAttachment.pNext = nullptr;
 
@@ -35,6 +35,25 @@ gran::RenderAttachmentInfo gran::RHI::RenderPass::CreateDepthAttachmentInfo(cons
 	depthAttachment.loadOp = createInfo.m_DoClearValue ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;
 	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 	depthAttachment.clearValue.depthStencil.depth = 0.f;
+
+	return info;
+};
+
+gran::RenderingInfo gran::RHI::RenderPass::CreateRenderingInfo(const RenderingCreateInfo& createInfo)
+{
+	gran::RenderingInfo info;
+	VkRenderingInfo& renderInfo = info.m_RenderInfo;
+	renderInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;
+	renderInfo.pNext = nullptr;
+
+	// renderInfo.renderArea.extent.width = swapchain.m_SwapchainExtent.width;
+	// renderInfo.renderArea.extent.height = swapchain.m_SwapchainExtent.height;
+	renderInfo.renderArea = VkRect2D { VkOffset2D { 0, 0 }, createInfo.m_RenderExtent };
+	renderInfo.layerCount = 1;
+	renderInfo.colorAttachmentCount = 1;
+	renderInfo.pColorAttachments = createInfo.m_ColorAttachment;
+	renderInfo.pDepthAttachment = createInfo.m_DepthAttachment;
+	renderInfo.pStencilAttachment = createInfo.m_StencilAttachment;
 
 	return info;
 };

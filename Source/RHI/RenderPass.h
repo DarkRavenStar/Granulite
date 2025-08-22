@@ -16,6 +16,19 @@ namespace gran
 	{
 		VkRenderingAttachmentInfo m_AttachmentInfo;
 	};
+
+	struct RenderingCreateInfo
+	{
+		VkExtent2D m_RenderExtent;
+		VkRenderingAttachmentInfo* m_ColorAttachment = nullptr;
+		VkRenderingAttachmentInfo* m_DepthAttachment = nullptr;
+		VkRenderingAttachmentInfo* m_StencilAttachment = nullptr;
+	};
+
+	struct RenderingInfo
+	{
+		VkRenderingInfo m_RenderInfo;
+	};
 } // namespace gran
 
 namespace gran::RHI::RenderPass
@@ -23,5 +36,7 @@ namespace gran::RHI::RenderPass
 	gran::RenderAttachmentInfo CreateColorAttachmentInfo(const gran::RenderAttachmentCreateInfo& createInfo);
 
 	gran::RenderAttachmentInfo CreateDepthAttachmentInfo(const gran::RenderAttachmentCreateInfo& createInfo);
+
+	gran::RenderingInfo CreateRenderingInfo(const RenderingCreateInfo& createInfo);
 
 } // namespace gran::RHI::RenderPass

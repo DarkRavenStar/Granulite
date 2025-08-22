@@ -20,6 +20,8 @@ namespace gran
 		VkColorSpaceKHR m_ColorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;
 		VkPresentModeKHR m_PresentMode = VK_PRESENT_MODE_IMMEDIATE_KHR;
 		VkExtent2D m_SwapchainExtent = { 0, 0 };
+		// Same Data as m_SwapchainExtent but for easier reuse for images
+		VkExtent3D m_SwapchainExtent3D = { 0, 0, 1 };
 		std::vector<VkImage> m_SwapchainImages;
 		std::vector<VkImageView> m_SwapchainImageViews;
 	};

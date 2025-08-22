@@ -14,7 +14,6 @@ namespace gran
 {
 	struct GpuImageViewCreateInfo
 	{
-		// build a image-view for the depth image to use for rendering
 		VkImageViewCreateInfo m_ImageViewCreateInfo {
 			.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
 			.pNext = nullptr,
@@ -79,11 +78,9 @@ namespace gran
 			.requiredFlags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
 		};
 
-		// VkFormat m_Format = VK_FORMAT_R8G8B8A8_UNORM;
-		// VkImageUsageFlags m_Usage = VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
-		// VkExtent3D m_Size;
 		bool m_Mipmapped = false;
 		void* m_Data;
+		bool m_IsDepthImage = false;
 	};
 
 	struct GpuImage

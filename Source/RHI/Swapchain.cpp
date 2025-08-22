@@ -49,6 +49,9 @@ void gran::RHI::CreateSwapchain(
 	swapchain.m_SwapchainImageFormat = vkbSwapchain.image_format;
 	swapchain.m_Swapchain = vkbSwapchain.swapchain;
 	swapchain.m_SwapchainExtent = vkbSwapchain.extent;
+	swapchain.m_SwapchainExtent3D.width = vkbSwapchain.extent.width;
+	swapchain.m_SwapchainExtent3D.height = vkbSwapchain.extent.height;
+	swapchain.m_SwapchainExtent3D.depth = 1;
 	swapchain.m_SwapchainImages = vkbSwapchain.get_images().value();
 	swapchain.m_SwapchainImageViews = vkbSwapchain.get_image_views().value();
 }
