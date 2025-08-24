@@ -15,21 +15,20 @@
 #include "vk_mem_alloc.h"
 
 
-
 int main(int argc, const char** argv)
 {
 	gran::DeviceCreationData creationData { .m_AppName = "Granulite", .m_UseValidationLayer = true, };
 	gran::Device device;
 	gran::DeviceQueue deviceQueue;
 	gran::Swapchain swapchain;
-	gran::FrameSyncData frameSyncData;
+	gran::SyncData syncData;
 	gran::GpuAllocator allocator;
 
 	GLFWwindow* window = gran::Window::CreateWindowGLFW(creationData);
 	assert(window);
 
 	gran::Window::InitializeWindowRHI(*window, creationData, device, deviceQueue);
-	gran::RHI::Sync::CreateFrameSyncData(creationData, device, frameSyncData);
+	gran::RHI::Sync::CreateSyncData(creationData, device, syncData);
 	gran::RHI::Memory::SetupAllocator(device, allocator);
 
 	BufferTesting(allocator);
@@ -50,7 +49,7 @@ int main(int argc, const char** argv)
 	}
 
 	gran::RHI::Memory::CleanupAllocator(device, allocator);
-	gran::RHI::Sync::CleanupFrameSyncData(device, frameSyncData);
+	gran::RHI::Sync::CleanupSyncData(device, syncData);
 
 	gran::Window::CleanupWindowRHI(*window, device, swapchain);
 	gran::Window::DestroyWindow(*window);

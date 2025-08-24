@@ -13,32 +13,36 @@ namespace gran
 {
 	struct FrameSyncData
 	{
-		// Used for submitting any immediate stuff
-		VkFence m_ImmediateSubmitFence;
-
-		uint32_t m_MaxFrames = 0;
 		// Used to check if the GPU has finished rendering
 		// Will cause syncing when reusing the same index
 		// when GPU is not done yet
-		std::vector<VkFence> m_RenderFence;
+		VkFence m_RenderFence;
+
 		// Use to sync when getting image from swapchain
 		// and when the swapchain will be ready to be used
-		std::vector<VkSemaphore> m_SwapchainSemaphore;
+		VkSemaphore m_SwapchainSemaphore;
 
 		// Use to sync when the rendering is done and
 		// can we transfer the data to the swapchain
-		std::vector<VkSemaphore> m_RenderSemaphore;
+		VkSemaphore m_RenderSemaphore;
+	};
+
+	struct SyncData
+	{
+		// Used for submitting any immediate stuff
+		VkFence m_ImmediateSubmitFence;
+		std::vector<gran::FrameSyncData> m_FrameSyncData;
 	};
 
 } // namespace gran
 
 namespace gran::RHI::Sync
 {
-	void CreateFrameSyncData(
+	void CreateSyncData(
 	    const gran::DeviceCreationData& creationData,
 	    const gran::Device& device,
-	    gran::FrameSyncData& sync);
+	    gran::SyncData& sync);
 
-	void CleanupFrameSyncData(const gran::Device& device, gran::FrameSyncData& sync);
+	void CleanupSyncData(const gran::Device& device, gran::SyncData& sync);
 
 } // namespace gran::RHI::Sync
