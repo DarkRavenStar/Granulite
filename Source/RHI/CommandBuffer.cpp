@@ -39,6 +39,11 @@ void gran::RHI::CommandBuffer::BeginGpuCommandBuffer(
 	VK_CHECK(vkBeginCommandBuffer(cmd.m_Cmd, &info.m_CmdBeginInfo));
 }
 
+void gran::RHI::CommandBuffer::ResetGpuCommandBuffer(const gran::GpuCommandBuffer& cmd)
+{
+	VK_CHECK(vkResetCommandBuffer(cmd.m_Cmd, 0));
+}
+
 void gran::RHI::CommandBuffer::EndGpuCommandBuffer(const gran::GpuCommandBuffer& cmd)
 {
 	VK_CHECK(vkEndCommandBuffer(cmd.m_Cmd));
@@ -52,7 +57,8 @@ void gran::RHI::CommandBuffer::ImmediateSubmitCmd(
     std::function<void(const gran::GpuCommandBuffer& cmd)>&& function)
 {
 	VK_CHECK(vkResetFences(device.m_Device, 1, &syncData.m_ImmediateSubmitFence));
-	VK_CHECK(vkResetCommandBuffer(cmd.m_Cmd, 0));
+
+	ResetGpuCommandBuffer(cmd);
 
 	BeginGpuCommandBuffer(cmd);
 

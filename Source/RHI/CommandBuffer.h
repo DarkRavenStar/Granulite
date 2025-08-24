@@ -92,6 +92,8 @@ namespace gran::RHI::CommandBuffer
 	    const gran::GpuCommandBuffer& cmd,
 	    const gran::GpuCommandBufferBeginInfo& info = gran::c_DefaultGpuCmdBeginInfo);
 
+	void ResetGpuCommandBuffer(const gran::GpuCommandBuffer& cmd);
+
 	void EndGpuCommandBuffer(const gran::GpuCommandBuffer& cmd);
 
 	// Can be terrible inefficient, need batching eventually
