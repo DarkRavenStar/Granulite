@@ -7,9 +7,9 @@
 #include <functional>
 
 gran::GpuSubmitInfo gran::RHI::CommandBuffer::CreateGpuSubmitInfo(
-    const GpuCommandBufferSubmitInfo& cmdSubmitInfo,
-    const GpuSemaphoreSubmitInfo* signalSemaphoreInfo,
-    const GpuSemaphoreSubmitInfo* waitSemaphoreInfo)
+    const gran::GpuCommandBufferSubmitInfo& cmdSubmitInfo,
+    const gran::GpuSemaphoreSubmitInfo* signalSemaphoreInfo,
+    const gran::GpuSemaphoreSubmitInfo* waitSemaphoreInfo)
 {
 	GpuSubmitInfo info;
 	VkSubmitInfo2& submitInfo = info.m_SubmitInfo;
@@ -25,33 +25,45 @@ gran::GpuSubmitInfo gran::RHI::CommandBuffer::CreateGpuSubmitInfo(
 		submitInfo.waitSemaphoreInfoCount = 1;
 		submitInfo.pWaitSemaphoreInfos = &waitSemaphoreInfo->m_SubmitInfo;
 	}
-	
+
 	submitInfo.commandBufferInfoCount = 1;
 	submitInfo.pCommandBufferInfos = &cmdSubmitInfo.m_CmdSubmitInfo;
-	
+
 	return info;
+}
+
+void gran::RHI::CommandBuffer::BeginGpuCommandBuffer(
+    const gran::GpuCommandBuffer& cmd,
+    const gran::GpuCommandBufferBeginInfo& info)
+{
+	VK_CHECK(vkBeginCommandBuffer(cmd.m_Cmd, &info.m_CmdBeginInfo));
+}
+
+void gran::RHI::CommandBuffer::EndGpuCommandBuffer(const gran::GpuCommandBuffer& cmd)
+{
+	VK_CHECK(vkEndCommandBuffer(cmd.m_Cmd));
 }
 
 void gran::RHI::CommandBuffer::ImmediateSubmitCmd(
     const gran::Device& device,
     const gran::DeviceQueue& deviceQueue,
     const gran::SyncData& syncData,
-    const GpuCommandBuffer& cmd,
-    std::function<void(const GpuCommandBuffer& cmd)>&& function)
+    const gran::GpuCommandBuffer& cmd,
+    std::function<void(const gran::GpuCommandBuffer& cmd)>&& function)
 {
 	VK_CHECK(vkResetFences(device.m_Device, 1, &syncData.m_ImmediateSubmitFence));
 	VK_CHECK(vkResetCommandBuffer(cmd.m_Cmd, 0));
 
-	VK_CHECK(vkBeginCommandBuffer(cmd.m_Cmd, &gran::c_DefaultGpuCmdBeginInfo.m_CmdBeginInfo));
+	BeginGpuCommandBuffer(cmd);
 
 	function(cmd);
 
-	VK_CHECK(vkEndCommandBuffer(cmd.m_Cmd));
+	EndGpuCommandBuffer(cmd);
 
-	GpuCommandBufferSubmitInfo cmdSubmitInfo;
+	gran::GpuCommandBufferSubmitInfo cmdSubmitInfo;
 	cmdSubmitInfo.m_CmdSubmitInfo.commandBuffer = cmd.m_Cmd;
 
-	GpuSubmitInfo submit = CreateGpuSubmitInfo(cmdSubmitInfo, nullptr, nullptr);
+	gran::GpuSubmitInfo submit = CreateGpuSubmitInfo(cmdSubmitInfo, nullptr, nullptr);
 
 	VK_CHECK(vkQueueSubmit2(
 	    deviceQueue.m_Queue[QueueType::graphics].m_QueueHandle,

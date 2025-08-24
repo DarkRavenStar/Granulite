@@ -84,16 +84,22 @@ namespace gran
 namespace gran::RHI::CommandBuffer
 {
 	gran::GpuSubmitInfo CreateGpuSubmitInfo(
-	    const GpuCommandBufferSubmitInfo& cmdSubmitInfo,
-	    const GpuSemaphoreSubmitInfo* signalSemaphoreInfo,
-	    const GpuSemaphoreSubmitInfo* waitSemaphoreInfo);
+	    const gran::GpuCommandBufferSubmitInfo& cmdSubmitInfo,
+	    const gran::GpuSemaphoreSubmitInfo* signalSemaphoreInfo,
+	    const gran::GpuSemaphoreSubmitInfo* waitSemaphoreInfo);
+
+	void BeginGpuCommandBuffer(
+	    const gran::GpuCommandBuffer& cmd,
+	    const gran::GpuCommandBufferBeginInfo& info = gran::c_DefaultGpuCmdBeginInfo);
+
+	void EndGpuCommandBuffer(const gran::GpuCommandBuffer& cmd);
 
 	// Can be terrible inefficient, need batching eventually
 	void ImmediateSubmitCmd(
 	    const gran::Device& device,
 	    const gran::DeviceQueue& deviceQueue,
 	    const gran::SyncData& syncData,
-	    const GpuCommandBuffer& cmd,
-	    std::function<void(const GpuCommandBuffer& cmd)>&& function);
+	    const gran::GpuCommandBuffer& cmd,
+	    std::function<void(const gran::GpuCommandBuffer& cmd)>&& function);
 
 } // namespace gran::RHI::CommandBuffer
