@@ -20,14 +20,14 @@ gran::GpuCommandPool gran::RHI::CommandPool::CreateGpuCommandPool(
 
 void gran::RHI::CommandPool::ResetGpuCommandPool(
     const gran::Device& device,
-    gran::GpuCommandPool& pool)
+    const gran::GpuCommandPool& pool)
 {
 	VK_CHECK(vkResetCommandPool(device.m_Device, pool.m_CommandPool, 0));
 }
 
 void gran::RHI::CommandPool::DestroyGpuCommandPool(
     const gran::Device& device,
-    gran::GpuCommandPool& pool)
+    const gran::GpuCommandPool& pool)
 {
 	vkDestroyCommandPool(device.m_Device, pool.m_CommandPool, nullptr);
 }

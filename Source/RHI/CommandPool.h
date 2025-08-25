@@ -32,8 +32,8 @@ namespace gran::RHI::CommandPool
 	    const gran::Device& device,
 	    const gran::GpuCommandPoolCreateInfo& createInfo);
 
-	void ResetGpuCommandPool(const gran::Device& device, GpuCommandPool& pool);
+	void ResetGpuCommandPool(const gran::Device& device, const GpuCommandPool& pool);
 
-	void DestroyGpuCommandPool(const gran::Device& device, GpuCommandPool& pool);
+	void DestroyGpuCommandPool(const gran::Device& device, const GpuCommandPool& pool);
 
 } // namespace gran::RHI::CommandPool
